@@ -1,8 +1,8 @@
  The current progress is initial.
 
-I've developed the beginning of the Discovery phase (the pre-configure phase) that crawls all the Workspace subdirectories in search of Projects. Now I'll start looking for Targets and Modules.
+Your task: Add Projects API functions to Projects.cmake file. You can take inspiration on other build systems such as Unreal Build Tool (Unreal Engine) to develop the API (you can check the .uproject file and how it works).
 
-Your task: Update Discovery.cmake and add another function called "DiscoverComponents". This function should find every directory inside each Project source directory (`<ProjectName>/Source/`). For every directory, it should look for Targets (`<TargetName>.Target.cmake`) and Projects (`<ProjectName>.Project.cmake`). 
+I'm attaching the Targets and Modules API that are already finalized. You can check them to use as template for the Projects API.
 
 Current `Build/CMakeLists.txt`:
 ```cmake
