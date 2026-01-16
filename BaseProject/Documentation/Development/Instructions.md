@@ -105,3 +105,5 @@ After I've finished sending this entire prompt you should only:
 - Ask about your current task;
   
 After I've sent the current progress and current task, you should just respond the necessary information regarding the task and nothing more, just wait for me to analyze and test to give you feedback.
+
+Project Repository: https://github.com/NtWanderer/Workspace/

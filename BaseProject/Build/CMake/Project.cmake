@@ -1,6 +1,6 @@
 # Copyright (c) Mirage Engine. All Rights Reserved.
 
-include_guard()
+include_guard(GLOBAL)
 
 include("Registry")
 

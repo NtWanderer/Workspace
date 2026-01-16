@@ -3,7 +3,7 @@
 ## Executive Summary
 The Build System should crawl the `Workspace` to search for every `Project` and then search for every `Target` and `Module` at the `Source` subdirectory of each `Project`.
 
-### Phase 1: Infrastructure
+### Phase 1: Setup
 - **Objective**: Create the entry-point scripts and the base CMake logic for recursive scanning.
 - **Sub-tasks**:
     - Implement the `Workspace/BaseProject/Build/CMake/Discovery.cmake` script file.

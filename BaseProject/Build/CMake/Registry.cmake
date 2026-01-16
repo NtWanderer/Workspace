@@ -1,6 +1,6 @@
 # Copyright (c) Workspace. All Rights Reserved.
 
-include_guard()
+include_guard(GLOBAL)
 
 #
 # Registry list access
