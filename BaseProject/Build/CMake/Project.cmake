@@ -35,23 +35,30 @@ set(PROJECT_BUILD_INTERMEDIATES_PROJECTFILES_DIRECTORY  "${PROJECT_BUILD_INTERME
 # Project Helper Functions
 #
 
-# Add a Project to the Project list Registry.
+# TODO
 function(AddProjectList InProjectName)
-	AddRegistryList(PROJECT ${InProjectName})
+	AddRegistryList("PROJECT" "${InProjectName}")
 endfunction()
 
-# Get the Project list Registry.
+# TODO
 function(GetProjectList OutValue)
-	GetRegistryList(Value PROJECT)
+	GetRegistryList(Value "PROJECT")
 	set(${OutValue} "${Value}" PARENT_SCOPE)
 endfunction()
 
-# Set a Property value on the Project Registry.
-function(SetProjectEntry InProjectName InPropertyName InValue)
-	SetRegistryEntry(PROJECT "${InProjectName}" "${InPropertyName}" "${InValue}")
+# TODO
+function(AddProjectEntry InProjectName InPropertyName InValue)
+	AddRegistryEntry("PROJECT" "${InProjectName}" "${InPropertyName}" "${InValue}")
+
+	Trace("[AddProjectEntry][${InProjectName}] ${InPropertyName} ${InValue}")
 endfunction()
 
-# Get a Property value from the Project Registry.
+# TODO
+function(SetProjectEntry InProjectName InPropertyName InValue)
+	SetRegistryEntry("PROJECT" "${InProjectName}" "${InPropertyName}" "${InValue}")
+endfunction()
+
+# TODO
 function(GetProjectEntry OutValue InProjectName InPropertyName)
 	GetRegistryEntry(Value "PROJECT" "${InProjectName}" "${InPropertyName}")
 	set(${OutValue} "${Value}" PARENT_SCOPE)
@@ -61,29 +68,30 @@ endfunction()
 # Project Properties
 #
 
-# Add a Project to the Project list Registry and set the Project directory.
+# TODO
 function(AddProject InProjectName InProjectDirectory)
 	#
-    # Check if already registered using the Registry helper
+	# TODO
 	#
 
-    GetProjectList(ProjectList)
+	GetProjectList(ProjectList)
 
-    if("${InProjectName}" IN_LIST ProjectList)
-        message(WARNING "Project [${InProjectName}] already registered.")
-        return()
-    endif()
-
-	#
-    # Use the helper to add to the global Registry list
-	#
-
-    AddProjectList("${InProjectName}")
+	if("${InProjectName}" IN_LIST ProjectList)
+		message(WARNING "Project [${InProjectName}] already registered.")
+		return()
+	endif()
 
 	#
-    # Store the absolute directory context
+	# TODO
 	#
 
-    get_filename_component(AbsoluteDirectory "${InProjectDirectory}" ABSOLUTE)
-    SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDirectory}")
+	AddProjectList("${InProjectName}")
+
+	#
+	# TODO
+	#
+
+	get_filename_component(AbsoluteDirectory "${InProjectDirectory}" ABSOLUTE)
+
+	SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDirectory}")
 endfunction()
