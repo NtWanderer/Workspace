@@ -1,2 +1,5 @@
-# Ignore every Obsidian personal settings.
-.obsidian/
+# Ignore all content within .obsidian directories anywhere in the Workspace.
+**/.obsidian/
+
+# Ignore all content within Intermediates directories anywhere in the Workspace.
+**/Intermediates/
