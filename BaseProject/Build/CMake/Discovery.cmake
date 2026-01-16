@@ -7,7 +7,6 @@ include("Project")
 include("Target")
 include("Module")
 
-
 #
 # Discover Projects
 #
@@ -82,7 +81,7 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 			set(TargetName "${CMAKE_MATCH_1}")
 
 			AddTarget("${TargetName}" "${InProjectName}" "${FileDirectory}")
-			AddProjectEntry("${InProjectName}" "Targets" "${TargetName}")
+			AddProjectComponent("${InProjectName}" "Targets" "${TargetName}")
 		elseif(FileName MATCHES "(.+)\\.Module\\.cmake$")
 			#
 			# Found Module
@@ -91,7 +90,7 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 			set(ModuleName "${CMAKE_MATCH_1}")
 
 			AddModule("${ModuleName}" "${InProjectName}" "${FileDirectory}")
-			AddProjectEntry("${InProjectName}" "Modules" "${ModuleName}")
+			AddProjectComponent("${InProjectName}" "Modules" "${ModuleName}")
 		endif()
 	endforeach()
 endfunction()

@@ -49,8 +49,6 @@ endfunction()
 # TODO
 function(AddProjectEntry InProjectName InPropertyName InValue)
 	AddRegistryEntry("PROJECT" "${InProjectName}" "${InPropertyName}" "${InValue}")
-
-	Trace("[AddProjectEntry][${InProjectName}] ${InPropertyName} ${InValue}")
 endfunction()
 
 # TODO
@@ -77,7 +75,6 @@ function(AddProject InProjectName InProjectDirectory)
 	GetProjectList(ProjectList)
 
 	if("${InProjectName}" IN_LIST ProjectList)
-		message(WARNING "Project [${InProjectName}] already registered.")
 		return()
 	endif()
 
@@ -94,4 +91,23 @@ function(AddProject InProjectName InProjectDirectory)
 	get_filename_component(AbsoluteDirectory "${InProjectDirectory}" ABSOLUTE)
 
 	SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDirectory}")
+endfunction()
+
+# TODO
+function(AddProjectComponent InProjectName InPropertyName InComponentName)
+	#
+	# TODO
+	#
+
+	GetProjectEntry(ComponentList "${InProjectName}" "${InPropertyName}")
+
+	if("${InComponentName}" IN_LIST ComponentList)
+		return()
+	endif()
+
+	#
+	#
+	#
+
+	AddProjectEntry("${InProjectName}" "${InPropertyName}" "${InComponentName}")
 endfunction()
