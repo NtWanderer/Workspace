@@ -162,8 +162,6 @@ endfunction()
 # TODO
 function(AddProjectEntry InProjectName InPropertyName InValue)
 	AddRegistryEntry("PROJECT" "${InProjectName}" "${InPropertyName}" "${InValue}")
-
-	Trace("[AddProjectEntry][${InProjectName}] ${InPropertyName} ${InValue}")
 endfunction()
 
 # TODO
@@ -184,29 +182,47 @@ endfunction()
 # TODO
 function(AddProject InProjectName InProjectDirectory)
 	#
-    # TODO
+	# TODO
 	#
 
-    GetProjectList(ProjectList)
+	GetProjectList(ProjectList)
 
-    if("${InProjectName}" IN_LIST ProjectList)
-        message(WARNING "Project [${InProjectName}] already registered.")
-        return()
-    endif()
-
-	#
-    # TODO
-	#
-
-    AddProjectList("${InProjectName}")
+	if("${InProjectName}" IN_LIST ProjectList)
+		return()
+	endif()
 
 	#
-    # TODO
+	# TODO
 	#
 
-    get_filename_component(AbsoluteDirectory "${InProjectDirectory}" ABSOLUTE)
+	AddProjectList("${InProjectName}")
 
-    SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDirectory}")
+	#
+	# TODO
+	#
+
+	get_filename_component(AbsoluteDirectory "${InProjectDirectory}" ABSOLUTE)
+
+	SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDirectory}")
+endfunction()
+
+# TODO
+function(AddProjectComponent InProjectName InPropertyName InComponentName)
+	#
+	# TODO
+	#
+
+	GetProjectEntry(ComponentList "${InProjectName}" "${InPropertyName}")
+
+	if("${InComponentName}" IN_LIST ComponentList)
+		return()
+	endif()
+
+	#
+	#
+	#
+
+	AddProjectEntry("${InProjectName}" "${InPropertyName}" "${InComponentName}")
 endfunction()
 ```
 
@@ -367,7 +383,6 @@ include("Project")
 include("Target")
 include("Module")
 
-
 #
 # Discover Projects
 #
@@ -442,7 +457,7 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 			set(TargetName "${CMAKE_MATCH_1}")
 
 			AddTarget("${TargetName}" "${InProjectName}" "${FileDirectory}")
-			AddProjectEntry("${InProjectName}" "Targets" "${TargetName}")
+			AddProjectComponent("${InProjectName}" "Targets" "${TargetName}")
 		elseif(FileName MATCHES "(.+)\\.Module\\.cmake$")
 			#
 			# Found Module
@@ -451,7 +466,7 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 			set(ModuleName "${CMAKE_MATCH_1}")
 
 			AddModule("${ModuleName}" "${InProjectName}" "${FileDirectory}")
-			AddProjectEntry("${InProjectName}" "Modules" "${ModuleName}")
+			AddProjectComponent("${InProjectName}" "Modules" "${ModuleName}")
 		endif()
 	endforeach()
 endfunction()
