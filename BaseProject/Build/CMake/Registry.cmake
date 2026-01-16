@@ -48,7 +48,7 @@ macro(GetRegistryEntry OutVar InRegistryType InRegistryName InPropertyName)
 	set(VarName "REGISTRY_${InRegistryType}_${InRegistryName}_${InPropertyName}")
 
 	if(DEFINED ${VarName})
-		set(${OutVar} "$CACHE${${VarName}}")
+		set(${OutVar} "$CACHE{${VarName}}")
 	else()
 		set(${OutVar} "")
 	endif()

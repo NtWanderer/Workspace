@@ -6,40 +6,38 @@ include("Registry")
 include("Project")
 
 #
-# Discovery Phase
+# Discover Projects
 #
 
-message(STATUS "Starting Workspace Discovery: ${WORKSPACE_DIRECTORY}")
+# TODO
+function(DiscoverProjects InWorkspaceDirectory)
+    #
+    #
+    #
 
-# 1. Identify all potential project directories in the Workspace
-file(GLOB ALL_FILES RELATIVE "${WORKSPACE_DIRECTORY}" "${WORKSPACE_DIRECTORY}/*")
+    file(GLOB AllFiles RELATIVE "${InWorkspaceDirectory}" "${InWorkspaceDirectory}/*")
 
-foreach(Entry ${ALL_FILES})
-    set(FullEntryPath "${WORKSPACE_DIRECTORY}/${Entry}")
-    
-    if(IS_DIRECTORY "${FullEntryPath}")
-        # 2. Search for the <ProjectName>.Project.cmake file inside the directory
-        # According to the structure, we look for ProjectA/ProjectA.Project.cmake
-        set(ProjectMetadataFile "${FullEntryPath}/${Entry}.Project.cmake")
+    foreach(File ${AllFiles})
+        set(FullFilePath "${InWorkspaceDirectory}/${File}")
 
-        if(EXISTS "${ProjectMetadataFile}")
-            # 3. Register the Project
-            # The AddProject function (from Project.cmake) handles the Registry logic
-            AddProject("${Entry}" "${FullEntryPath}")
+        #
+        #
+        #
 
-            # 4. Include the metadata file to populate further info (Targets, Version, etc.)
-            # This allows the project to call SetProjectEntry for additional metadata
-            include("${ProjectMetadataFile}")
+        if(IS_DIRECTORY "${FullFilePath}")
+            #
+            #
+            #
+
+            file(GLOB ProjectMetadataFiles "${FullFilePath}/*.Project.cmake")
+
+            foreach(ProjectMetadataFile ${ProjectMetadataFiles})
+                #
+                # Register the Project using the folder name as the Project name.
+                #
+
+                AddProject("${File}" "${FullFilePath}")
+            endforeach()
         endif()
-    endif()
-endforeach()
-
-# 5. Summary of discovered projects
-GetProjectList(DiscoveredProjects)
-
-if(DiscoveredProjects)
-    list(JOIN DiscoveredProjects ", " ProjectListStr)
-    message(STATUS "Discovery Complete. Registered Projects: [${ProjectListStr}]")
-else()
-    message(WARNING "Discovery Complete. No valid projects found in the workspace.")
-endif()
+    endforeach()
+endfunction()

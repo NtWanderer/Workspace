@@ -1,4 +1,4 @@
-# Copyright (c) Mirage Engine. All Rights Reserved.
+# Copyright (c) Workspace. All Rights Reserved.
 
 include_guard(GLOBAL)
 
@@ -48,12 +48,12 @@ endfunction()
 
 # Set a Property value on the Project Registry.
 function(SetProjectEntry InProjectName InPropertyName InValue)
-	SetRegistryEntry(PROJECT ${InProjectName} ${InPropertyName} ${InValue})
+	SetRegistryEntry(PROJECT "${InProjectName}" "${InPropertyName}" "${InValue}")
 endfunction()
 
 # Get a Property value from the Project Registry.
 function(GetProjectEntry OutValue InProjectName InPropertyName)
-	GetRegistryEntry(Value PROJECT ${InProjectName} ${InPropertyName})
+	GetRegistryEntry(Value "PROJECT" "${InProjectName}" "${InPropertyName}")
 	set(${OutValue} "${Value}" PARENT_SCOPE)
 endfunction()
 
@@ -70,7 +70,7 @@ function(AddProject InProjectName InProjectDirectory)
     GetProjectList(ProjectList)
 
     if("${InProjectName}" IN_LIST ProjectList)
-        message(Warning "Project [${InProjectName}] already registered.")
+        message(WARNING "Project [${InProjectName}] already registered.")
         return()
     endif()
 
@@ -84,8 +84,6 @@ function(AddProject InProjectName InProjectDirectory)
     # Store the absolute directory context
 	#
 
-    get_filename_component(AbsoluteDir "${InProjectDirectory}" ABSOLUTE)
-    SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDir}")
-
-    message(Info "Registered Project: ${InProjectName} -> ${AbsoluteDir}")
+    get_filename_component(AbsoluteDirectory "${InProjectDirectory}" ABSOLUTE)
+    SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDirectory}")
 endfunction()
