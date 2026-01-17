@@ -67,7 +67,7 @@ endfunction()
 #
 
 # TODO
-function(AddProject InProjectName InProjectDirectory)
+function(AddProject InProjectName InProjectFile InProjectDirectory)
 	#
 	# TODO
 	#
@@ -90,6 +90,7 @@ function(AddProject InProjectName InProjectDirectory)
 
 	get_filename_component(AbsoluteDirectory "${InProjectDirectory}" ABSOLUTE)
 
+	SetProjectEntry("${InProjectName}" "File" "${InProjectFile}")
 	SetProjectEntry("${InProjectName}" "Directory" "${AbsoluteDirectory}")
 endfunction()
 
@@ -110,4 +111,30 @@ function(AddProjectComponent InProjectName InPropertyName InComponentName)
 	#
 
 	AddProjectEntry("${InProjectName}" "${InPropertyName}" "${InComponentName}")
+endfunction()
+
+#
+# Project API
+#
+
+# Sets a descriptive name for the project, overriding the folder-based name.
+function(SetProjectName InName)
+    SetProjectEntry("${CurrentProject}" "Name" "${InName}")
+endfunction()
+
+# Sets the version of the project.
+function(SetProjectVersion InMajor InMinor InPatch)
+    SetProjectEntry("${CurrentProject}" "Version" "${InMajor}.${InMinor}.${InPatch}")
+endfunction()
+
+# Adds one or more authors to the project.
+function(AddProjectAuthor)
+    foreach(Author ${ARGN})
+        AddProjectEntry("${CurrentProject}" "Author" "${Author}")
+    endforeach()
+endfunction()
+
+# Sets the category for the project.
+function(SetProjectCategory InCategory)
+    SetProjectEntry("${CurrentProject}" "Category" "${InCategory}")
 endfunction()

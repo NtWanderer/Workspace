@@ -40,7 +40,7 @@ endfunction()
 #
 
 # TODO
-function(AddModule InModuleName InProjectName InModuleDirectory)
+function(AddModule InModuleName InProjectName InModuleFile InModuleDirectory)
 	#
 	# TODO
 	#
@@ -65,5 +65,6 @@ function(AddModule InModuleName InProjectName InModuleDirectory)
 	get_filename_component(AbsoluteDirectory "${InModuleDirectory}" ABSOLUTE)
 
 	SetModuleEntry("${InModuleName}" "Project" "${InProjectName}")
+	SetModuleEntry("${InModuleName}" "File" "${InModuleFile}")
 	SetModuleEntry("${InModuleName}" "Directory" "${AbsoluteDirectory}")
 endfunction()

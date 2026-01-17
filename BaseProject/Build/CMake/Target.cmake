@@ -40,7 +40,7 @@ endfunction()
 #
 
 # TODO
-function(AddTarget InTargetName InProjectName InTargetDirectory)
+function(AddTarget InTargetName InProjectName InTargetFile InTargetDirectory)
 	#
 	# TODO
 	#
@@ -65,5 +65,6 @@ function(AddTarget InTargetName InProjectName InTargetDirectory)
 	get_filename_component(AbsoluteDirectory "${InTargetDirectory}" ABSOLUTE)
 
 	SetTargetEntry("${InTargetName}" "Project" "${InProjectName}")
+	SetTargetEntry("${InTargetName}" "File" "${InTargetFile}")
 	SetTargetEntry("${InTargetName}" "Directory" "${AbsoluteDirectory}")
 endfunction()

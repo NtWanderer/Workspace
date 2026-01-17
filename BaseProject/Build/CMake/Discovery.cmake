@@ -2,25 +2,24 @@
 
 include_guard(GLOBAL)
 
-include("Registry")
 include("Project")
 include("Target")
 include("Module")
 
 #
-# Discover Projects
+# Projects Discovery
 #
 
 # TODO
-function(DiscoverProjects InWorkspaceDirectory)
+function(DiscoverProjects)
 	#
 	#
 	#
 
-	file(GLOB AllFiles RELATIVE "${InWorkspaceDirectory}" "${InWorkspaceDirectory}/*")
+	file(GLOB AllFiles RELATIVE "${WORKSPACE_DIRECTORY}" "${WORKSPACE_DIRECTORY}/*")
 
 	foreach(FileName ${AllFiles})
-		set(FullFilePath "${InWorkspaceDirectory}/${FileName}")
+		set(FullFilePath "${WORKSPACE_DIRECTORY}/${FileName}")
 
 		#
 		#
@@ -38,7 +37,9 @@ function(DiscoverProjects InWorkspaceDirectory)
 				# Register the Project using the folder name as the Project name.
 				#
 
-				AddProject("${FileName}" "${FullFilePath}")
+				get_filename_component(MetadataFileName "${ProjectMetadataFile}" NAME)
+
+				AddProject("${FileName}" "${MetadataFileName}" "${FullFilePath}")
 			endforeach()
 		endif()
 	endforeach()
@@ -50,9 +51,9 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 	# TODO
 	#
 
-	set(SearchDirectory "${InProjectDirectory}/${PROJECT_SOURCE_DIRECTORY}")
+	set(ProjectSourceDirectory "${InProjectDirectory}/${PROJECT_SOURCE_DIRECTORY}")
 
-	if(NOT EXISTS "${SearchDirectory}")
+	if(NOT EXISTS "${ProjectSourceDirectory}")
 		return()
 	endif()
 
@@ -61,8 +62,8 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 	#
 
 	file(GLOB_RECURSE FoundComponents
-		"${SearchDirectory}/*.Target.cmake"
-		"${SearchDirectory}/*.Module.cmake"
+		"${ProjectSourceDirectory}/*.Target.cmake"
+		"${ProjectSourceDirectory}/*.Module.cmake"
 	)
 
 	#
@@ -80,8 +81,8 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 
 			set(TargetName "${CMAKE_MATCH_1}")
 
-			AddTarget("${TargetName}" "${InProjectName}" "${FileDirectory}")
 			AddProjectComponent("${InProjectName}" "Targets" "${TargetName}")
+			AddTarget("${TargetName}" "${InProjectName}" "${FileName}" "${FileDirectory}")
 		elseif(FileName MATCHES "(.+)\\.Module\\.cmake$")
 			#
 			# Found Module
@@ -89,8 +90,8 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 
 			set(ModuleName "${CMAKE_MATCH_1}")
 
-			AddModule("${ModuleName}" "${InProjectName}" "${FileDirectory}")
 			AddProjectComponent("${InProjectName}" "Modules" "${ModuleName}")
+			AddModule("${ModuleName}" "${InProjectName}" "${FileName}" "${FileDirectory}")
 		endif()
 	endforeach()
 endfunction()

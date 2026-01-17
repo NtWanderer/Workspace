@@ -8,16 +8,16 @@ include_guard(GLOBAL)
 
 # Add a specified Registry to the RegistryType list.
 macro(AddRegistryList InRegistryType InRegistryName)
-	get_property(GlobalList GLOBAL PROPERTY REGISTRY_${InRegistryType}_LIST)
+	get_property(GlobalList GLOBAL PROPERTY "REGISTRY_${InRegistryType}_LIST")
 
 	if(NOT "${InRegistryName}" IN_LIST GlobalList)
-		set_property(GLOBAL APPEND PROPERTY REGISTRY_${InRegistryType}_LIST "${InRegistryName}")
+		set_property(GLOBAL APPEND PROPERTY "REGISTRY_${InRegistryType}_LIST" "${InRegistryName}")
 	endif()
 endmacro()
 
 # Get the actual RegistryType list.
 macro(GetRegistryList OutVar InRegistryType)
-	get_property(${OutVar} GLOBAL PROPERTY REGISTRY_${InRegistryType}_LIST)
+	get_property(${OutVar} GLOBAL PROPERTY "REGISTRY_${InRegistryType}_LIST")
 endmacro()
 
 #
