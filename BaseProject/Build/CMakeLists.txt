@@ -21,45 +21,12 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake")
 #
 
 include("Discovery")
-include("Context")
 
 #
 #
 #
 
-DiscoverProjects()
-GetProjectList(ProjectList)
-
-if(NOT ProjectList)
-	message(WARNING "No projects found.")
-	return()
-endif()
-
-#
-#
-#
-
-ContextLoadProjects()
-
-#
-#
-#
-
-foreach(ProjectName ${ProjectList})
-	GetProjectEntry(ProjectNameAlt "${ProjectName}" "Name")
-
-	if (ProjectNameAlt)
-		list(APPEND ProjectListNames "${ProjectNameAlt}")
-	else()
-		list(APPEND ProjectListNames "${ProjectName}")
-	endif()
-
-	GetProjectEntry(ProjectDirectory "${ProjectName}" "Directory")
-	DiscoverProjectComponents("${ProjectName}" "${ProjectDirectory}")
-endforeach()
-
-list(JOIN ProjectListNames ", " ProjectListString)
-message(STATUS "Projects: [${ProjectListString}]")
+DoDiscovery()
 
 #
 #

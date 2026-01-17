@@ -5,6 +5,7 @@ include_guard(GLOBAL)
 include("Project")
 include("Target")
 include("Module")
+include("Context")
 
 #
 # Projects Discovery
@@ -93,5 +94,34 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 			AddProjectComponent("${InProjectName}" "Modules" "${ModuleName}")
 			AddModule("${ModuleName}" "${InProjectName}" "${FileName}" "${FileDirectory}")
 		endif()
+	endforeach()
+endfunction()
+
+#
+#
+#
+
+function(DoDiscovery)
+	DiscoverProjects()
+	GetProjectList(ProjectList)
+
+	if(NOT ProjectList)
+		message(WARNING "No projects found.")
+		return()
+	endif()
+
+	#
+	#
+	#
+
+	ContextLoadProjects()
+
+	#
+	#
+	#
+
+	foreach(ProjectName ${ProjectList})
+		GetProjectEntry(ProjectDirectory "${ProjectName}" "Directory")
+		DiscoverProjectComponents("${ProjectName}" "${ProjectDirectory}")
 	endforeach()
 endfunction()
