@@ -20,8 +20,16 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake")
 # TODO
 #
 
+include("Configuration")
 include("Discovery")
 include("Context")
+
+#
+# Initialization
+#
+
+InitializeConfigurations()
+InitializeDefaultConfigurations()
 
 #
 # TODO
