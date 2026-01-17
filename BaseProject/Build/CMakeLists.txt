@@ -17,17 +17,22 @@ get_filename_component(WORKSPACE_DIRECTORY "${WORKSPACE_DIRECTORY}" ABSOLUTE)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake")
 
 #
-#
+# TODO
 #
 
 include("Discovery")
+include("Context")
 
 #
-#
+# TODO
 #
 
 DoDiscovery()
 
 #
+# TODO
 #
-#
+
+ContextLoadProjects()
+ContextLoadTargets()
+ContextLoadModules()

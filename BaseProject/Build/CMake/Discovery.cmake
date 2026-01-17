@@ -5,7 +5,6 @@ include_guard(GLOBAL)
 include("Project")
 include("Target")
 include("Module")
-include("Context")
 
 #
 # Projects Discovery
@@ -14,7 +13,7 @@ include("Context")
 # TODO
 function(DiscoverProjects)
 	#
-	#
+	# TODO
 	#
 
 	file(GLOB AllFiles RELATIVE "${WORKSPACE_DIRECTORY}" "${WORKSPACE_DIRECTORY}/*")
@@ -23,12 +22,12 @@ function(DiscoverProjects)
 		set(FullFilePath "${WORKSPACE_DIRECTORY}/${FileName}")
 
 		#
-		#
+		# TODO
 		#
 
 		if(IS_DIRECTORY "${FullFilePath}")
 			#
-			#
+			# TODO
 			#
 
 			file(GLOB ProjectMetadataFiles "${FullFilePath}/*.Project.cmake")
@@ -98,10 +97,15 @@ function(DiscoverProjectComponents InProjectName InProjectDirectory)
 endfunction()
 
 #
-#
+# TODO
 #
 
+# TODO
 function(DoDiscovery)
+	#
+	# TODO
+	#
+
 	DiscoverProjects()
 	GetProjectList(ProjectList)
 
@@ -111,13 +115,7 @@ function(DoDiscovery)
 	endif()
 
 	#
-	#
-	#
-
-	ContextLoadProjects()
-
-	#
-	#
+	# TODO
 	#
 
 	foreach(ProjectName ${ProjectList})
